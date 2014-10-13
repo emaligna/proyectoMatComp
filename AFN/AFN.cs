@@ -198,7 +198,9 @@ namespace AutomataND
         {
             string path;
             OpenFileDialog file = new OpenFileDialog();
-            file.Filter = "Automata Files (*.af*)|*.af*|AFN Files (*.afn)|*.afn|AFD Files (*.afd)|*.afd";//|AFN Files (*.afn)|*.afn";
+            file.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            file.Filter = "Automata Files (*.af*)|*.af*|AFN Files (*.afn)|*.afn|AFD Files (*.afd)|*.afd";
+            
             if (file.ShowDialog() == DialogResult.OK)
             {
                path = file.FileName;
