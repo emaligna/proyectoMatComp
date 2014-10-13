@@ -12,7 +12,7 @@ namespace AutomataND
 {
     public partial class AFN : Form
     {
- bool automataLoaded = false;
+        bool automataLoaded = false;
         //Automata variables
         List<List<List<string>>> automataMatrix = new List<List<List<string>>>();
         List<string> states = new List<string>();
@@ -198,6 +198,7 @@ namespace AutomataND
         {
             string path;
             OpenFileDialog file = new OpenFileDialog();
+            file.Filter = "Automata Files (*.af*)|*.af*|AFN Files (*.afn)|*.afn|AFD Files (*.afd)|*.afd";//|AFN Files (*.afn)|*.afn";
             if (file.ShowDialog() == DialogResult.OK)
             {
                path = file.FileName;
@@ -237,6 +238,11 @@ namespace AutomataND
                 textDisplay.BackColor = Color.SlateGray;
 
             }
+        }
+
+        private void AFN_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

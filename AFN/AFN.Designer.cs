@@ -65,7 +65,7 @@
             // loadAutomataToolStripMenuItem
             // 
             this.loadAutomataToolStripMenuItem.Name = "loadAutomataToolStripMenuItem";
-            this.loadAutomataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.loadAutomataToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.loadAutomataToolStripMenuItem.Text = "Load AFN";
             this.loadAutomataToolStripMenuItem.Click += new System.EventHandler(this.loadAutomataToolStripMenuItem_Click);
             // 
@@ -186,6 +186,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "AFN";
             this.Text = "AFN";
+            this.Load += new System.EventHandler(this.AFN_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableView)).EndInit();
