@@ -27,27 +27,28 @@ namespace Modulo1
                  precedence = this.precedenceDictionary[c];
             }
             else{
-                precedence =  0;    
+                precedence = 6;    
             }
             return precedence;
         }
 
-        public string formatRegEx(string regex) {
+        private string formatRegEx(string regex) {
             string res = "";
+            char[] regexChar = regex.ToCharArray();
             List<char> allOperators = new List<char> {'|', '?', '+', '*', '^'};
             List<char> binaryOperators = new List<char> {'^','|'};
 
             for (int i = 0; i < regex.Length; i++) {
-                char c1 = regex.ToCharArray()[i];
+                char c1 = regexChar[i];
                 if (i + 1 < regex.Length){
-                    char c2 = regex.ToCharArray()[i + 1];
+                    char c2 = regexChar[i + 1];
                     res += c1;
                     if (!c1.Equals('(') && !c2.Equals(')') && !allOperators.Contains(c2) && !binaryOperators.Contains(c1)){
                         res += '&';
                     }
                 }
             }
-            res += regex.ToCharArray()[regex.Length - 1];
+            res += regexChar[regex.Length - 1];
             return res;
         }
 
@@ -56,14 +57,18 @@ namespace Modulo1
             string postfix = "";
             Stack<char> stack = new Stack<char>();
             string formattedRegEx = formatRegEx(regex);
-
+            Console.WriteLine("Formatted Regex: " + formattedRegEx);
             foreach (char c in formattedRegEx.ToCharArray()){
-                switch (c) { 
+                //Console.WriteLine(stack.ToString());
+                //Console.WriteLine(c);
+                //Console.WriteLine(postfix);
+                switch (c) {
                     case '(':
                         stack.Push(c);
                         break;
                     case ')':
                         while (!stack.Peek().Equals('(')){
+                            //Console.WriteLine(stack.Peek());
                             postfix += stack.Pop();
                         }
                         stack.Pop();
@@ -82,6 +87,7 @@ namespace Modulo1
                                 break;
                             }
                         }
+                        stack.Push(c);
                         break;
                 }
             }
@@ -89,8 +95,6 @@ namespace Modulo1
             while (stack.Count > 0) {
                 postfix += stack.Pop();
             }
-
-
             return postfix;
         }
     }

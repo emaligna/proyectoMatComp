@@ -11,7 +11,8 @@ namespace Modulo1
 
         public static void Main(string[] args) {
             infixToPostfix test = new infixToPostfix();
-            Console.WriteLine(test.convertToPostfix("(a+b)*"));
+            string postfix = test.convertToPostfix("(bb)*a(bb)+c");
+            Console.WriteLine(postfix);
         }
     }
 }
