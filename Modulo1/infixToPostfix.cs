@@ -9,8 +9,10 @@ namespace Modulo1
     public class infixToPostfix
     {
         private Dictionary<char,int> precedenceDictionary;
+        private string result;
         
         public infixToPostfix() {
+            this.result = "";
             this.precedenceDictionary = new Dictionary<char, int>();
             this.precedenceDictionary.Add('(', 1);
             this.precedenceDictionary.Add('|', 2);
@@ -19,6 +21,23 @@ namespace Modulo1
             this.precedenceDictionary.Add('*', 4);
             this.precedenceDictionary.Add('+', 4);
             this.precedenceDictionary.Add('^', 5);
+        }
+
+        public infixToPostfix(string regex) {
+            this.precedenceDictionary = new Dictionary<char, int>();
+            this.precedenceDictionary.Add('(', 1);
+            this.precedenceDictionary.Add('|', 2);
+            this.precedenceDictionary.Add('&', 3); //concatenation character
+            this.precedenceDictionary.Add('?', 4);
+            this.precedenceDictionary.Add('*', 4);
+            this.precedenceDictionary.Add('+', 4);
+            this.precedenceDictionary.Add('^', 5);
+            this.result = this.convertToPostfix(regex);
+        }
+
+        //Can only be used after calling convertToPostfix or the constructor that recieves a string as a parameter
+        public string getResult(){
+            return this.result;
         }
 
         private int getPrecedence(char c){
@@ -95,6 +114,7 @@ namespace Modulo1
             while (stack.Count > 0) {
                 postfix += stack.Pop();
             }
+            this.result = postfix;
             return postfix;
         }
     }
