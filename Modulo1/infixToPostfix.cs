@@ -8,30 +8,22 @@ namespace Modulo1
 {
     public class infixToPostfix
     {
-        private Dictionary<char,int> precedenceDictionary;
+        private Dictionary<char, int> precedenceDictionary = new Dictionary<char, int>()
+        {{'(',1},
+         {'|',2},
+         {'&',3}, //concatenation character
+         {'?',4},
+         {'*',4},
+         {'+',4},
+         {'^',5}
+        };
         private string result;
         
         public infixToPostfix() {
             this.result = "";
-            this.precedenceDictionary = new Dictionary<char, int>();
-            this.precedenceDictionary.Add('(', 1);
-            this.precedenceDictionary.Add('|', 2);
-            this.precedenceDictionary.Add('&', 3); //concatenation character
-            this.precedenceDictionary.Add('?', 4);
-            this.precedenceDictionary.Add('*', 4);
-            this.precedenceDictionary.Add('+', 4);
-            this.precedenceDictionary.Add('^', 5);
         }
 
         public infixToPostfix(string regex) {
-            this.precedenceDictionary = new Dictionary<char, int>();
-            this.precedenceDictionary.Add('(', 1);
-            this.precedenceDictionary.Add('|', 2);
-            this.precedenceDictionary.Add('&', 3); //concatenation character
-            this.precedenceDictionary.Add('?', 4);
-            this.precedenceDictionary.Add('*', 4);
-            this.precedenceDictionary.Add('+', 4);
-            this.precedenceDictionary.Add('^', 5);
             this.result = this.convertToPostfix(regex);
         }
 
