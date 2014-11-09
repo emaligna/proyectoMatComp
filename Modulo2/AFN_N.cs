@@ -11,18 +11,23 @@ namespace Modulo2
     {
         public Node initialNode;
         public List<Node> FreeNodes;
+        public List<Transition> nullOut;
         public AFN_N()
         {
             initialNode = null;
             FreeNodes = new List<Node>();
+            nullOut = new List<Transition>();
         }
         public void Link(AFN_N afn)
         {
-            for (int i = 0; i < FreeNodes.Count; i++) 
-                for (int j = 0; j < FreeNodes[i].transitions.Count; j++)
-                    if (FreeNodes[i].transitions[j].destination == null)
-                        FreeNodes[i].transitions[j].destination = afn.initialNode;
-            FreeNodes = afn.FreeNodes;
+
+            for (int i = 0; i < nullOut.Count; i++) 
+                nullOut[i].destination = afn.initialNode;
+            nullOut = afn.nullOut;
+        }
+        public void joinNull(List<Transition> outNull)
+        {
+                nullOut.AddRange(outNull);
         }
         public List<Node> getNodes()
         {

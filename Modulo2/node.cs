@@ -8,13 +8,13 @@ namespace Modulo2
 {
     class Transition
     {
-         public Node destination;
-            public char input;
-            public Transition(char input, Node destination)
-            {
-                this.input = input;
-                this.destination = destination;
-            }
+        public Node destination;
+        public char input;
+        public Transition(char input, Node destination)
+        {
+            this.input = input;
+            this.destination = destination;
+        }
     }
     class Node
     {
@@ -27,9 +27,11 @@ namespace Modulo2
             this.name = name;
             this.final = final;
         }
-        public void Link(char input, Node destination)
+        public Transition Link(char input, Node destination)
         {
-            transitions.Add(new Transition(input, destination));
+            Transition trans = new Transition(input, destination);
+            transitions.Add(trans);
+            return trans;
         }
 
 

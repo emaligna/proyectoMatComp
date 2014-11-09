@@ -10,40 +10,12 @@ namespace Modulo2
     class Mod2
     {
         const char _eps = '@'; //ε
-        public AFN_E result=new AFN_E();
-        public AFN_N NBresult = new AFN_N();
-        public void link(AFN_E afne, string origin, string destiny, char symbol)
-        {
-            int originIndex, destinyIndex, symbolIndex;
-            originIndex = afne.states.IndexOf(origin);
-            destinyIndex = afne.states.IndexOf(destiny);
-            symbolIndex = afne.alphabet.IndexOf(symbol);
-
-            if (originIndex == -1)
-            {
-                originIndex = afne.states.Count;
-                afne.states.Add(origin);
-            }
-            if (destinyIndex == -1)
-            {
-                destinyIndex = afne.states.Count;
-                afne.states.Add(destiny);
-            }
-            if (symbolIndex == -1)
-            {
-                symbolIndex = afne.alphabet.Count;
-                afne.alphabet.Add(symbol);
-            }
-            //NULL
-           if(destiny!=null)
-                afne.transitionMatrix[originIndex][symbolIndex].Add(destiny);
-
-        }
-
-
+        public AFN_E result = new AFN_E();      //old format AFN-ε
+        public AFN_N NBresult = new AFN_N();    //node based AFN-ε
+      
+       
         private void toAFN_E(AFN_N afnN)
         {
-            //List<Node> nodes = afnN.getNodes();
             List<char> alphabet = new List<char>();
             alphabet.Add(_eps);
             List<string> states = new List<string>();
@@ -70,8 +42,7 @@ namespace Modulo2
                         
 
                     Node temp2 = temp.transitions[i].destination;
-                   //NULL
-                    if (temp2!=null &&!nodes.Contains(temp2))
+                    if (!nodes.Contains(temp2))
                     {
                         nodes.Add(temp2);
                         queue.Enqueue(temp2);
@@ -91,9 +62,7 @@ namespace Modulo2
                     finalStates.Add(temp.name);
                 for (int k = 0; k < temp.transitions.Count; k++)
                 {
-                    //NULL
-                    if(temp.transitions[k].destination!=null)
-                        transitionMatrix[i][alphabet.IndexOf(temp.transitions[k].input)].Add(temp.transitions[k].destination.name);
+                    transitionMatrix[i][alphabet.IndexOf(temp.transitions[k].input)].Add(temp.transitions[k].destination.name);
                 }
             }
             result = new AFN_E(states, alphabet, initialState, transitionMatrix, finalStates);
@@ -119,8 +88,7 @@ namespace Modulo2
                         temp1 = afnStack.Pop();
                         temp.initialNode = new Node("q" + i);
                         temp.initialNode.Link(_eps, temp1.initialNode);
-                        temp.initialNode.Link(_eps, null);
-                        temp.FreeNodes.Add(temp.initialNode);
+                        temp.nullOut.Add(temp.initialNode.Link(_eps, null));
                         temp1.Link(temp);
                         afnStack.Push(temp1);
                         break;
@@ -129,8 +97,8 @@ namespace Modulo2
                         temp1 = afnStack.Pop();
                         temp.initialNode = new Node("q" + i);
                         temp.initialNode.Link(_eps,temp1.initialNode);
-                        temp.initialNode.Link(_eps, null);
-                        temp.FreeNodes.Add(temp.initialNode);
+                        temp.nullOut.Add(temp.initialNode.Link(_eps, null));
+                        temp1.Link(temp);
                         afnStack.Push(temp);
                         break;
                     case '&': //concatenation
@@ -144,20 +112,21 @@ namespace Modulo2
                         temp1 = afnStack.Pop();
                         temp2 = afnStack.Pop();
                         temp.initialNode = new Node("q" + i);
-                        temp.initialNode.Link(_eps, temp1.initialNode);
                         temp.initialNode.Link(_eps, temp2.initialNode);
+                        temp.initialNode.Link(_eps, temp1.initialNode);
+                        temp.joinNull(temp2.nullOut);
+                        temp.joinNull(temp1.nullOut);
                         afnStack.Push(temp);
                         break;
                     default:
                         temp = new AFN_N();
                         temp.initialNode = new Node("q" + i);
-                        temp.initialNode.Link(input, null);
-                        temp.FreeNodes.Add(temp.initialNode);
+                        temp.nullOut.Add(temp.initialNode.Link(input, null));
                         afnStack.Push(temp);
                         break;
                 }
             }
-            //agregar final
+            //add final state
             temp = afnStack.Pop();
             temp1 = new AFN_N();
             temp1.initialNode = new Node("qf", true);

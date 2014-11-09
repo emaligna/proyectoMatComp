@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 
 namespace Modulo2
-{   
-    /// <summary>
-    /// This class represents Non Deterministic Finite Automatons, with epsilon transition.
-    /// </summary>
+{
+    //Old format AFN-ε, with lists to represent state, alphabet, links.
     class AFN_E
     {
         //Epsilon constant.
@@ -21,6 +19,8 @@ namespace Modulo2
         public string initialState;
         public List<string> finalStates;
 
+        bool hasEpsilon;
+
         public AFN_E()
         {
             alphabet = new List<char>();
@@ -29,21 +29,33 @@ namespace Modulo2
             transitionMatrix = new List<List<List<string>>>();
             initialState="";
             finalStates = new List<string>();
+            hasEpsilon = true;
 
         }
-        public AFN_E(List<string> st, List<char> al, string i, List<List<List<string>>> tm, List<string> f)
+        public AFN_E(List<string> st, List<char> al, string i, List<List<List<string>>> tm, List<string> f, bool eps=true)
         {
             states = st;
             alphabet = al;
             initialState = i;
             transitionMatrix = tm;
             finalStates = f;
+            hasEpsilon = eps;
         }
+        //TODO
+        public void removeEps()
+        {
 
-        
-
-
-
+        }
+        //TODO
+        public bool eval(string input)
+        {
+            if (hasEpsilon)
+            {
+                Console.WriteLine("Has epsilon, can't eval");
+                return false;
+            }
+            return true;
+        }
 
     }
 }
