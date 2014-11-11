@@ -40,8 +40,16 @@
             this.finalLabel = new System.Windows.Forms.Label();
             this.matrixLabel = new System.Windows.Forms.Label();
             this.tableView = new System.Windows.Forms.DataGridView();
+            this.checkwrite = new System.Windows.Forms.CheckBox();
+            this.panelregex = new System.Windows.Forms.Panel();
+            this.regbutton = new System.Windows.Forms.Button();
+            this.evaluate = new System.Windows.Forms.TextBox();
+            this.regex = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableView)).BeginInit();
+            this.panelregex.SuspendLayout();
             this.SuspendLayout();
             // 
             // menuStrip1
@@ -50,7 +58,7 @@
             this.loadToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(294, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(373, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -86,7 +94,7 @@
             this.evalBtn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.evalBtn.Font = new System.Drawing.Font("Arial", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.evalBtn.ForeColor = System.Drawing.Color.White;
-            this.evalBtn.Location = new System.Drawing.Point(207, 65);
+            this.evalBtn.Location = new System.Drawing.Point(204, 65);
             this.evalBtn.Name = "evalBtn";
             this.evalBtn.Size = new System.Drawing.Size(75, 20);
             this.evalBtn.TabIndex = 3;
@@ -114,6 +122,7 @@
             this.alphabetLabel.Size = new System.Drawing.Size(68, 11);
             this.alphabetLabel.TabIndex = 5;
             this.alphabetLabel.Text = "Alphabet:";
+            this.alphabetLabel.Click += new System.EventHandler(this.alphabetLabel_Click);
             // 
             // statesLabel
             // 
@@ -168,11 +177,88 @@
             this.tableView.Size = new System.Drawing.Size(240, 150);
             this.tableView.TabIndex = 10;
             // 
+            // checkwrite
+            // 
+            this.checkwrite.AutoSize = true;
+            this.checkwrite.BackColor = System.Drawing.SystemColors.Control;
+            this.checkwrite.Location = new System.Drawing.Point(264, 12);
+            this.checkwrite.Name = "checkwrite";
+            this.checkwrite.Size = new System.Drawing.Size(109, 17);
+            this.checkwrite.TabIndex = 11;
+            this.checkwrite.Text = "Escribir Expresión";
+            this.checkwrite.UseVisualStyleBackColor = false;
+            this.checkwrite.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // panelregex
+            // 
+            this.panelregex.Controls.Add(this.label2);
+            this.panelregex.Controls.Add(this.label1);
+            this.panelregex.Controls.Add(this.regbutton);
+            this.panelregex.Controls.Add(this.evaluate);
+            this.panelregex.Controls.Add(this.regex);
+            this.panelregex.Location = new System.Drawing.Point(0, 131);
+            this.panelregex.Name = "panelregex";
+            this.panelregex.Size = new System.Drawing.Size(353, 292);
+            this.panelregex.TabIndex = 12;
+            this.panelregex.Visible = false;
+            // 
+            // regbutton
+            // 
+            this.regbutton.BackColor = System.Drawing.Color.LightSkyBlue;
+            this.regbutton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.regbutton.FlatAppearance.BorderColor = System.Drawing.Color.SkyBlue;
+            this.regbutton.FlatAppearance.MouseDownBackColor = System.Drawing.Color.SkyBlue;
+            this.regbutton.FlatAppearance.MouseOverBackColor = System.Drawing.Color.SkyBlue;
+            this.regbutton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.regbutton.Font = new System.Drawing.Font("Arial", 6.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.regbutton.ForeColor = System.Drawing.Color.White;
+            this.regbutton.Location = new System.Drawing.Point(266, 38);
+            this.regbutton.Name = "regbutton";
+            this.regbutton.Size = new System.Drawing.Size(75, 20);
+            this.regbutton.TabIndex = 4;
+            this.regbutton.Text = "Evaluate";
+            this.regbutton.UseVisualStyleBackColor = false;
+            this.regbutton.Click += new System.EventHandler(this.regbutton_Click);
+            // 
+            // evaluate
+            // 
+            this.evaluate.Location = new System.Drawing.Point(52, 49);
+            this.evaluate.Name = "evaluate";
+            this.evaluate.Size = new System.Drawing.Size(208, 20);
+            this.evaluate.TabIndex = 2;
+            // 
+            // regex
+            // 
+            this.regex.Location = new System.Drawing.Point(52, 23);
+            this.regex.Name = "regex";
+            this.regex.Size = new System.Drawing.Size(208, 20);
+            this.regex.TabIndex = 1;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(7, 26);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(38, 13);
+            this.label1.TabIndex = 5;
+            this.label1.Text = "Regex";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(11, 56);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(34, 13);
+            this.label2.TabIndex = 6;
+            this.label2.Text = "String";
+            // 
             // AFN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(294, 375);
+            this.ClientSize = new System.Drawing.Size(373, 375);
+            this.Controls.Add(this.panelregex);
+            this.Controls.Add(this.checkwrite);
             this.Controls.Add(this.tableView);
             this.Controls.Add(this.matrixLabel);
             this.Controls.Add(this.finalLabel);
@@ -190,6 +276,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableView)).EndInit();
+            this.panelregex.ResumeLayout(false);
+            this.panelregex.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -209,6 +297,13 @@
         private System.Windows.Forms.Label finalLabel;
         private System.Windows.Forms.Label matrixLabel;
         private System.Windows.Forms.DataGridView tableView;
+        private System.Windows.Forms.CheckBox checkwrite;
+        private System.Windows.Forms.Panel panelregex;
+        private System.Windows.Forms.Button regbutton;
+        private System.Windows.Forms.TextBox evaluate;
+        private System.Windows.Forms.TextBox regex;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label1;
     }
 }
 

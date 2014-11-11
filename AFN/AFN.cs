@@ -246,5 +246,21 @@ namespace AutomataND
         {
 
         }
+
+        private void alphabetLabel_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            panelregex.Visible = checkwrite.Checked;
+            
+        }
+
+        private void regbutton_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
