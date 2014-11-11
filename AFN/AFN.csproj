@@ -50,6 +50,7 @@
     <Compile Include="AFN.Designer.cs">
       <DependentUpon>AFN.cs</DependentUpon>
     </Compile>
+    <Compile Include="AFN_E.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="AFN.resx">

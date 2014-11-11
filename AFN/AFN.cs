@@ -13,25 +13,32 @@ namespace AutomataND
     public partial class AFN : Form
     {
         bool automataLoaded = false;
+        AFN_E afn = new AFN_E();
         //Automata variables
+        /*
         List<List<List<string>>> automataMatrix = new List<List<List<string>>>();
         List<string> states = new List<string>();
         List<char> alphabet = new List<char>();
         string initialState;
         List<string> finalStates = new List<string>();
+        */
         //file parser
         private void restartValues()
         {
+            /*
             automataMatrix = new List<List<List<string>>>();
             states = new List<string>();
             alphabet = new List<char>();
             finalStates = new List<string>();
             initialState = "";
+             */
+            afn.clear();
             tableView.DataSource = null;
             tableView.Rows.Clear();
             tableView.Columns.Clear();
             tableView.Update();
         }
+        /*
         private bool parser(string path)
         {
             restartValues();
@@ -80,6 +87,8 @@ namespace AutomataND
                return false;
            }
         }
+        */
+       /*
         //Automata methods
         private int symbol(char c)
         {
@@ -134,25 +143,26 @@ namespace AutomataND
             }
             return false;
         }
+*/
         private void createTable()
         {
             tableView.ReadOnly = false;
-            for (int i = 0; i < alphabet.Count; i++)
+            for (int i = 0; i < afn.alphabet.Count; i++)
             {
-                tableView.Columns.Add(alphabet[i] + "", "'" + alphabet[i] + "'");
+                tableView.Columns.Add(afn.alphabet[i] + "", "'" + afn.alphabet[i] + "'");
             }
-            for (int i = 0; i < states.Count; i++)
+            for (int i = 0; i < afn.states.Count; i++)
             {
                 tableView.Rows.Add();
-                tableView.Rows[i].HeaderCell.Value = states[i];
-                for (int j = 0; j < alphabet.Count; j++)
+                tableView.Rows[i].HeaderCell.Value = afn.states[i];
+                for (int j = 0; j < afn.alphabet.Count; j++)
                 {
                     string val = "";
-                    for (int k = 0; k < automataMatrix[i][j].Count-1; k++)
+                    for (int k = 0; k < afn.transitionMatrix[i][j].Count-1; k++)
                     {
-                        val += automataMatrix[i][j][k] + ", ";
+                        val += afn.transitionMatrix[i][j][k] + ", ";
                     }
-                    val += automataMatrix[i][j][automataMatrix[i][j].Count - 1] == "%" ? "Ø" : automataMatrix[i][j][automataMatrix[i][j].Count - 1];
+                    val += afn.transitionMatrix[i][j][afn.transitionMatrix[i][j].Count - 1] == "%" ? "Ø" : afn.transitionMatrix[i][j][afn.transitionMatrix[i][j].Count - 1];
                     //Ø used to imply empty state
                     tableView.Rows[i].Cells[j].Value = val;
                 }
@@ -164,12 +174,13 @@ namespace AutomataND
         private void showData()
         {
             int offset_text = 15;
-            alphabetLabel.Text = "Alphabet: ".PadRight(offset_text) + string.Join(",", alphabet.ToArray());
-            statesLabel.Text = "States: ".PadRight(offset_text) + string.Join(",", states.ToArray());
-            initLabel.Text = "Initial State: ".PadRight(offset_text) + initialState;
-            finalLabel.Text = "Final States: ".PadRight(offset_text) + string.Join(",", finalStates.ToArray());
+            alphabetLabel.Text = "Alphabet: ".PadRight(offset_text) + string.Join(",", afn.alphabet.ToArray());
+            statesLabel.Text = "States: ".PadRight(offset_text) + string.Join(",", afn.states.ToArray());
+            initLabel.Text = "Initial State: ".PadRight(offset_text) + afn.initialState;
+            finalLabel.Text = "Final States: ".PadRight(offset_text) + string.Join(",", afn.finalStates.ToArray());
             matrixLabel.Text = "Transition Matrix:";
         }
+
         //UI stuff
         public AFN()
         {
@@ -204,7 +215,8 @@ namespace AutomataND
             if (file.ShowDialog() == DialogResult.OK)
             {
                path = file.FileName;
-               automataLoaded = parser(path);
+               this.restartValues();
+               automataLoaded = afn.parser(path);
                if (automataLoaded)
                {
                    showData();
@@ -229,7 +241,7 @@ namespace AutomataND
         {
             if (automataLoaded)
             {
-                bool test = eval(inputString.Text);
+                bool test = afn.eval(inputString.Text);
                 textDisplay.Text = '"'+inputString.Text +'"'+ (test ? " is Acepted": " is Not Acepted ");
                 textDisplay.BackColor = test ? Color.FromArgb(95, 183, 70) : Color.FromArgb(250, 47, 67);
         
