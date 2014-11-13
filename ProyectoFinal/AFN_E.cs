@@ -126,15 +126,33 @@ namespace AutomataND
          {
              return states.IndexOf(s);
          }
+         private bool inRealAlphabet(char c)
+         {
+             List<char> ra = new List<char> {'a','b','c','d','e','f','g','h','i','j','k','l','m','n','ñ','o','p','q','r','s','t','u','v','w','x','y','z',
+                                             'A','B','C','D','E','F','G','H','I','J','K','L','M','N','Ñ','O','P','Q','R','S','T','U','V','W','X','Y','Z',
+                                             'á','é','í','ó','ú',
+                                             'Á','É','Í','Ó','Ú',
+                                             ' ','.'};
+             return ra.Contains(c);
+         }
          private List<string> transition(string state, char c)
          {
+             List<string> result = new List<string>();
              int i=this.state(state);
              int j=this.symbol(c);
              if (i != -1 && j != -1)
              {
-                 return this.transitionMatrix[i][j];
+                 union(result, transitionMatrix[i][j]);
              }
-             return new List<string>();
+             if (alphabet.Contains('|'))
+             {
+                 j = this.symbol('|');
+                 if (inRealAlphabet(c) && i != -1 && j != -1)
+                 {
+                     union(result, transitionMatrix[i][j]);
+                 }
+             }
+             return result;
          }
          List<string> union(List<string> a, List<string> b)
          {
