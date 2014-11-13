@@ -199,7 +199,7 @@ namespace AutomataND
                  afnS += (finalStates.Contains(states[i]) ? "*" : "") + states[i] + "-";
                  for (int j = 0; j < alphabet.Count; j++)
                  {
-                     afnS += transitionMatrix[i][j].Count > 0 ? string.Join(",", transitionMatrix[i][j].ToArray()) : "%";
+                     afnS += string.Join(",", transitionMatrix[i][j].ToArray()) == "" ? "%" : string.Join(",", transitionMatrix[i][j].ToArray());
                      afnS += (j == alphabet.Count - 1 ? "\n" : "&");
                  }
              }

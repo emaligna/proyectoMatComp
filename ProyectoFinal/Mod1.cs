@@ -12,7 +12,7 @@ namespace AutomataND
         {{'(',1},
          {',',2}, // OR
          {'&',3}, //concatenation character
-         {'?',4},
+         {'?',4}, //Zero or One
          {'*',4},
          {'+',4},
          {'^',5}

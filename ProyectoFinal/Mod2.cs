@@ -83,6 +83,16 @@ namespace AutomataND
             {
                 char input = postfix[i];
                 switch(input){
+                    case '?': //Zero or one
+                        temp = new AFN_N();
+                        temp1 = afnStack.Pop();
+                        temp.initialNode = new Node("q" + i);
+                        temp.initialNode.Link(_eps,temp1.initialNode);
+                        temp.nullOut.Add(temp.initialNode.Link(_eps, null));
+                        temp.joinNull(temp1.nullOut);
+                        afnStack.Push(temp);
+                        break;
+
                     case '+':
                         temp = new AFN_N();
                         temp1 = afnStack.Pop();
