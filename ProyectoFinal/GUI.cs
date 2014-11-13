@@ -14,24 +14,10 @@ namespace AutomataND
     {
         bool automataLoaded = false;
         AFN_E afn = new AFN_E();
-        //Automata variables
-        /*
-        List<List<List<string>>> automataMatrix = new List<List<List<string>>>();
-        List<string> states = new List<string>();
-        List<char> alphabet = new List<char>();
-        string initialState;
-        List<string> finalStates = new List<string>();
-        */
-        //file parser
+      
         private void restartValues()
         {
-            /*
-            automataMatrix = new List<List<List<string>>>();
-            states = new List<string>();
-            alphabet = new List<char>();
-            finalStates = new List<string>();
-            initialState = "";
-             */
+          
             afn.clear();
             tableView.DataSource = null;
             tableView.Rows.Clear();
@@ -149,19 +135,14 @@ namespace AutomataND
             }
         }
 
-        private void AFN_Load(object sender, EventArgs e)
-        {
+       
 
-        }
-
-        private void alphabetLabel_Click(object sender, EventArgs e)
-        {
-
-        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             panelregex.Visible = checkwrite.Checked;
+            exportAFN.Visible = checkwrite.Checked;
+            loadAutomataToolStripMenuItem.Visible = !checkwrite.Checked;
             
         }
 
@@ -176,6 +157,33 @@ namespace AutomataND
             bool test = afn.eval(evaluate.Text);
             textDisplay.Text = '"' + evaluate.Text + '"' + (test ? " is Acepted" : " is Not Acepted ");
             textDisplay.BackColor = test ? Color.FromArgb(95, 183, 70) : Color.FromArgb(250, 47, 67);
+            
+        }
+
+        private void exportAFN_Click(object sender, EventArgs e)
+        {
+            string path;
+            //Load in case not loaded.
+            Mod1 m1 = new Mod1();
+            Mod2 m2 = new Mod2();
+            m1.convertToPostfix(regex.Text);
+            m2.computeAFN_E(m1.getResult());
+            Mod3.quitaEpsilon(m2.result);
+            afn = m2.result;
+            //Parsed string.
+            string afnS = afn.AFNtoString();
+
+            SaveFileDialog savePicker = new SaveFileDialog();
+            savePicker.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            savePicker.Filter = "Automata Files (*.af*)|*.af*|AFN Files (*.afn)|*.afn|AFD Files (*.afd)|*.afd";
+            savePicker.FileName = "New AFN";
+            savePicker.DefaultExt=".afn";
+
+             if (savePicker.ShowDialog() == DialogResult.OK)
+            {
+                 System.IO.File.WriteAllText(savePicker.FileName, afnS);
+            }
+            
             
         }
     }

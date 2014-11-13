@@ -47,6 +47,7 @@
             this.regbutton = new System.Windows.Forms.Button();
             this.evaluate = new System.Windows.Forms.TextBox();
             this.regex = new System.Windows.Forms.TextBox();
+            this.exportAFN = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableView)).BeginInit();
             this.panelregex.SuspendLayout();
@@ -65,7 +66,8 @@
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.loadAutomataToolStripMenuItem});
+            this.loadAutomataToolStripMenuItem,
+            this.exportAFN});
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.loadToolStripMenuItem.Text = "File";
@@ -73,7 +75,7 @@
             // loadAutomataToolStripMenuItem
             // 
             this.loadAutomataToolStripMenuItem.Name = "loadAutomataToolStripMenuItem";
-            this.loadAutomataToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
+            this.loadAutomataToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.loadAutomataToolStripMenuItem.Text = "Load AFN";
             this.loadAutomataToolStripMenuItem.Click += new System.EventHandler(this.loadAutomataToolStripMenuItem_Click);
             // 
@@ -122,7 +124,6 @@
             this.alphabetLabel.Size = new System.Drawing.Size(68, 11);
             this.alphabetLabel.TabIndex = 5;
             this.alphabetLabel.Text = "Alphabet:";
-            this.alphabetLabel.Click += new System.EventHandler(this.alphabetLabel_Click);
             // 
             // statesLabel
             // 
@@ -252,6 +253,14 @@
             this.regex.Size = new System.Drawing.Size(208, 20);
             this.regex.TabIndex = 1;
             // 
+            // exportAFN
+            // 
+            this.exportAFN.Name = "exportAFN";
+            this.exportAFN.Size = new System.Drawing.Size(152, 22);
+            this.exportAFN.Text = "Export AFN";
+            this.exportAFN.Visible = false;
+            this.exportAFN.Click += new System.EventHandler(this.exportAFN_Click);
+            // 
             // AFN
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -272,7 +281,6 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "AFN";
             this.Text = "AFN";
-            this.Load += new System.EventHandler(this.AFN_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableView)).EndInit();
@@ -304,6 +312,7 @@
         private System.Windows.Forms.TextBox regex;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem exportAFN;
     }
 }
 

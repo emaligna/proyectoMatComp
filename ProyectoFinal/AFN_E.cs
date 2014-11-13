@@ -54,7 +54,7 @@ namespace AutomataND
                 Console.WriteLine("Has epsilon, can't eval");
                 return false;
             }
-            return evalu(input);
+            return evaluate(input);
         }
 
         public void clear() 
@@ -163,7 +163,7 @@ namespace AutomataND
              }
              return a;
          }
-         private bool evalu(string s)
+         private bool evaluate(string s)
          {
              List<string> curState = new List<string>(); //Array of currentStates
              curState.Add(this.initialState); // add initial states
@@ -188,6 +188,22 @@ namespace AutomataND
                      return true;
              }
              return false;
+         }
+         //parse to .afn style string, in case needed.
+         public string AFNtoString()
+         {
+             string afnS = "";
+             afnS += string.Join(",", alphabet.ToArray()) + "\n";
+             for (int i = 0; i < transitionMatrix.Count; i++)
+             {
+                 afnS += (finalStates.Contains(states[i]) ? "*" : "") + states[i] + "-";
+                 for (int j = 0; j < alphabet.Count; j++)
+                 {
+                     afnS += transitionMatrix[i][j].Count > 0 ? string.Join("&", transitionMatrix[i][j].ToArray()) : "%";
+                     afnS += (j == alphabet.Count - 1 ? "\n" : ",");
+                 }
+             }
+             return afnS;
          }
 
     }
