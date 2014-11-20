@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Modulo1
+namespace Modulo2
 {
     public class Mod1
     {

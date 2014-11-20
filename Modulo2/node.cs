@@ -15,6 +15,10 @@ namespace Modulo2
             this.input = input;
             this.destination = destination;
         }
+        public override string ToString()
+        {
+            return input+"-"+destination;
+        }
     }
     class Node
     {
@@ -32,6 +36,10 @@ namespace Modulo2
             Transition trans = new Transition(input, destination);
             transitions.Add(trans);
             return trans;
+        }
+        public override string ToString()
+        {
+            return this.name;
         }
 
 

@@ -10,8 +10,8 @@ namespace Modulo1
     {
 
         public static void Main(string[] args) {
-            infixToPostfix test = new infixToPostfix();
-            string postfix = test.convertToPostfix("(bb)*a(bb)+c");
+            Mod1 test = new Mod1();
+            string postfix = test.convertToPostfix("((tu,ami)*(@,les)+)*,(enteró)*((b,c,d),.)");
             Console.WriteLine(postfix);
         }
     }

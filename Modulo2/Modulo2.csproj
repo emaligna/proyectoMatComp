@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="AFN_E.cs" />
     <Compile Include="AFN_N.cs" />
+    <Compile Include="Mod1.cs" />
     <Compile Include="Node.cs" />
     <Compile Include="Mod2.cs" />
     <Compile Include="Program.cs" />

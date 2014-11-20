@@ -47,13 +47,43 @@ namespace Modulo2
             }
             return afnS;
         }
+        public static void print<T>(List<T> list)
+        {
+            Console.Write("[");
+             for (int i = 0; i < list.Count; i++)
+            {
+                Console.Write(list[i] + (i == list.Count - 1 ? "" : ","));
+            }
+             Console.WriteLine("]"); 
+        }
+        private static List<T> union<T>(List<T> a, List<T> b)
+        {
+            for (int i = 0; i < b.Count; i++)
+            {
+                if (!a.Contains(b[i]))
+                    a.Add(b[i]);
+            }
+            return a;
+        }
         static void Main(string[] args)
         {
-            Mod2 test = new Mod2();
-            test.computeAFN_E("bb&*a&bb&+&c&");
-            printAFN(test.result);
-            Console.WriteLine("\nParsed AFN string:\n\n" + AFNtoString(test.result));
+            string regex = "((SOL)+|+(dos,(.,89*),0))*";
+            //SOL ASJI0 SOL a dos SOL0q
+            Console.WriteLine("Regex: " + regex);
+            Mod1 m1 = new Mod1(regex);
+            Mod2 m2 = new Mod2();
+            //"tu&am&i&,*@le&s&,+&*en&t&e&r&ó&*bc,d,.,&,"
+            m2.computeAFN_E(m1.getResult());
+            //printAFN(test.result);
+            //Console.WriteLine("\nParsed AFN string:\n\n" + AFNtoString(test.result));
 
+            //List<Node> epsTest = test.NBresult.followEpsilon(test.NBresult.initialNode);
+            Console.WriteLine("Initial State: " + m2.NBresult.initialNode);
+           // Console.Write("Clausura: ");
+           // print(epsTest);
+            string eval = "SOLASJI0SOLadosSOL0q";
+            Console.WriteLine("Evaluating string: " + eval);
+            Console.WriteLine((m2.NBresult.evaluate(eval) ? "" : "Not ") + "Acepted");
            
         }
     }
