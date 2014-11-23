@@ -13,22 +13,24 @@ namespace Modulo2
         public Node initialNode;
         public List<Node> FreeNodes;
         public List<Transition> nullOut;
+        private bool acceptsEpsilon;
         public AFN_N()
         {
             initialNode = null;
             FreeNodes = new List<Node>();
             nullOut = new List<Transition>();
+            acceptsEpsilon = false;
         }
         public void Link(AFN_N afn)
         {
 
-            for (int i = 0; i < nullOut.Count; i++) 
+            for (int i = 0; i < nullOut.Count; i++)
                 nullOut[i].destination = afn.initialNode;
             nullOut = afn.nullOut;
         }
         public void joinNull(List<Transition> outNull)
         {
-                nullOut.AddRange(outNull);
+            nullOut.AddRange(outNull);
         }
         public List<Node> getNodes()
         {
@@ -41,7 +43,7 @@ namespace Modulo2
                 Node temp = queue.Dequeue();
                 for (int i = 0; i < temp.transitions.Count; i++)
                 {
-                    Node temp2=temp.transitions[i].destination;
+                    Node temp2 = temp.transitions[i].destination;
                     if (!nodes.Contains(temp2))
                     {
                         nodes.Add(temp2);
@@ -68,13 +70,13 @@ namespace Modulo2
                 if (state.transitions[i].input == _eps)
                     return true;
             }
-                return false;
+            return false;
         }
         //Returns the rachable states with epsilon alone.
-        public List<Node> followEpsilon(Node state)
+        public List<Node> Closure(Node state)
         {
             List<Node> result = new List<Node>();
-            List<Node> check= new List<Node>();
+            List<Node> check = new List<Node>();
             Node[] temp;
             bool epsilonFound = hasEpsilonTransition(state);
             result.Add(state);
@@ -122,12 +124,12 @@ namespace Modulo2
         }
         public List<Node> transition(char input, List<Node> states)
         {
-            List<Node> result= new List<Node>();
-            foreach( Node state in states)
+            List<Node> result = new List<Node>();
+            foreach (Node state in states)
             {
                 foreach (Transition trans in state.transitions)
                 {
-                    if (trans.input != _eps && (trans.input == input||(trans.input=='|'&& inRealAlphabet(input))) && !result.Contains(trans.destination)) 
+                    if (trans.input != _eps && (trans.input == input || (trans.input == '|' && inRealAlphabet(input))) && !result.Contains(trans.destination))
                         result.Add(trans.destination);
                     //wildcard somewhere around here
                 }
@@ -136,22 +138,22 @@ namespace Modulo2
         }
         public bool evaluate(string input)
         {
-            List<Node> currStates =new List<Node>{initialNode};
+            List<Node> currStates = new List<Node> { initialNode };
             List<Node> newStates = new List<Node>(); ;
             foreach (char c in input)
             {
                 foreach (Node state in currStates)
                 {
-                    union(newStates, followEpsilon(state));
+                    union(newStates, Closure(state));
                 }
 
                 currStates = transition(c, newStates);
                 newStates.Clear();
-                
+
             }
             foreach (Node state in currStates)
             {
-                union(newStates, followEpsilon(state));
+                union(newStates, Closure(state));
             }
             foreach (Node state in newStates)
             {
@@ -160,6 +162,68 @@ namespace Modulo2
             }
             return false;
         }
+
+        //Last module
+        public bool HasFinal(List<Node> states)
+        {
+            foreach (Node state in states)
+            {
+                if (state.final) return true;
+            }
+            return false;
+        }
+        public List<char> startAlphabet()
+        {
+            List<char> result = new List<char>();
+            List<Node> st = Closure(initialNode);
+            if (HasFinal(st)) acceptsEpsilon = true;
+            foreach (Node state in st)
+            {
+                if(state.transitions.Count>0)
+                    result.Add(state.transitions[0].input);
+            }
+            return result;
+        }
+        public void contEval(List<string> found, string text, int index)
+        {
+            string s = "";
+            List<Node> currStates = new List<Node>(); ;
+            List<Node> tempStates = Closure(initialNode);
+            char input;
+            for (int i = index; i < text.Length; i++)
+            {
+                input = text[i];
+                s += input;
+                currStates = transition(input, tempStates);
+                if (currStates.Count == 0)
+                    return;
+                foreach (Node state in currStates)
+                {
+                    union(tempStates, Closure(state));
+                }
+                
+                if (HasFinal(tempStates))
+                    if (!found.Contains(s))
+                        found.Add(s);
+               
+            }
+        }
+        public List<string> textEval(string text)
+        {
+            List<char> start = startAlphabet();
+            bool startWildCard = start.Contains('|');
+            List<string> result = new List<string>();
+            if (acceptsEpsilon) result.Add(""+_eps);
+            for (int i = 0; i < text.Length; i++)
+            {
+                char input = text[i];
+                if (start.Contains(input) || (startWildCard && inRealAlphabet(input)))
+                {
+                    contEval(result, text, i);
+                }
+            }
+            return result;
+        }
     }
-        
+
 }

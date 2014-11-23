@@ -67,23 +67,29 @@ namespace Modulo2
         }
         static void Main(string[] args)
         {
-            string regex = "((SOL)+|+(dos,(.,89*),0))*";
-            //SOL ASJI0 SOL a dos SOL0q
+            //string regex = "((tu,ami)*(@,les)+)*,(enteró)*((b,c,d),.)";
+            //string regex = "m(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,j,r,s,t,u,v,w,x,y,z)*";
+            string regex = "|*";
+            
             Console.WriteLine("Regex: " + regex);
             Mod1 m1 = new Mod1(regex);
             Mod2 m2 = new Mod2();
-            //"tu&am&i&,*@le&s&,+&*en&t&e&r&ó&*bc,d,.,&,"
             m2.computeAFN_E(m1.getResult());
-            //printAFN(test.result);
-            //Console.WriteLine("\nParsed AFN string:\n\n" + AFNtoString(test.result));
-
-            //List<Node> epsTest = test.NBresult.followEpsilon(test.NBresult.initialNode);
+            AFN_N afn = m2.NBresult;
             Console.WriteLine("Initial State: " + m2.NBresult.initialNode);
-           // Console.Write("Clausura: ");
-           // print(epsTest);
-            string eval = "SOLASJI0SOLadosSOL0q";
-            Console.WriteLine("Evaluating string: " + eval);
-            Console.WriteLine((m2.NBresult.evaluate(eval) ? "" : "Not ") + "Acepted");
+            //string eval = "SOLASJI0SOLadosSOL0q";
+            //string eval = "melones grandes";
+            
+            string text = "Tom & Jerry";
+            List<string> match = afn.textEval(text);
+            List<char> ctest = afn.startAlphabet();
+
+            Console.Write("initial: ");
+            print<char>(ctest);
+
+           // Console.WriteLine("Evaluating string: " + eval);
+            //Console.WriteLine((m2.NBresult.evaluate(eval) ? "" : "Not ") + "Acepted");
+            print<string>(match);
            
         }
     }
