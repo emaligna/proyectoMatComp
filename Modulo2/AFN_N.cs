@@ -179,7 +179,7 @@ namespace Modulo2
             if (HasFinal(st)) acceptsEpsilon = true;
             foreach (Node state in st)
             {
-                if(state.transitions.Count>0)
+                if (state.transitions.Count > 0)
                     result.Add(state.transitions[0].input);
             }
             return result;
@@ -197,15 +197,16 @@ namespace Modulo2
                 currStates = transition(input, tempStates);
                 if (currStates.Count == 0)
                     return;
+                tempStates.Clear();
                 foreach (Node state in currStates)
                 {
                     union(tempStates, Closure(state));
                 }
-                
+
                 if (HasFinal(tempStates))
                     if (!found.Contains(s))
                         found.Add(s);
-               
+
             }
         }
         public List<string> textEval(string text)
@@ -213,7 +214,7 @@ namespace Modulo2
             List<char> start = startAlphabet();
             bool startWildCard = start.Contains('|');
             List<string> result = new List<string>();
-            if (acceptsEpsilon) result.Add(""+_eps);
+            if (acceptsEpsilon) result.Add("" + _eps);
             for (int i = 0; i < text.Length; i++)
             {
                 char input = text[i];

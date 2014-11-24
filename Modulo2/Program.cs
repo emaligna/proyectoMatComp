@@ -69,7 +69,7 @@ namespace Modulo2
         {
             //string regex = "((tu,ami)*(@,les)+)*,(enteró)*((b,c,d),.)";
             //string regex = "m(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,j,r,s,t,u,v,w,x,y,z)*";
-            string regex = "|*";
+            string regex = "|";
             
             Console.WriteLine("Regex: " + regex);
             Mod1 m1 = new Mod1(regex);
@@ -80,7 +80,7 @@ namespace Modulo2
             //string eval = "SOLASJI0SOLadosSOL0q";
             //string eval = "melones grandes";
             
-            string text = "Tom & Jerry";
+            string text = "mi mama me mima";
             List<string> match = afn.textEval(text);
             List<char> ctest = afn.startAlphabet();
 

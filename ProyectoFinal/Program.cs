@@ -16,7 +16,7 @@ namespace AutomataND
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new AFN());
+            Application.Run(new GUI());
         }
     }
 }

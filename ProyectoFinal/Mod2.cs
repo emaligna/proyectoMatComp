@@ -82,7 +82,8 @@ namespace AutomataND
             for (int i = 0; i < postfix.Length; i++)
             {
                 char input = postfix[i];
-                switch(input){
+                switch(input)
+                {
                     case '?': //Zero or one
                         temp = new AFN_N();
                         temp1 = afnStack.Pop();
@@ -143,7 +144,8 @@ namespace AutomataND
             temp.Link(temp1);
             NBresult = temp;
         }
-        public void computeAFN_E(string postfix){
+        public void computeAFN_E(string postfix)
+        {
             toAFN_N(postfix);
             toAFN_E(NBresult);
         }

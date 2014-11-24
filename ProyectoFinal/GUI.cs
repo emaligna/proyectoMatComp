@@ -10,7 +10,7 @@ using System.Windows.Forms;
 
 namespace AutomataND
 {
-    public partial class AFN : Form
+    public partial class GUI : Form
     {
         bool automataLoaded = false;
         AFN_E afn = new AFN_E();
@@ -63,7 +63,7 @@ namespace AutomataND
         }
 
         //UI stuff
-        public AFN()
+        public GUI()
         {
             InitializeComponent();
             evalBtn.BackColor = Color.LightSkyBlue;
@@ -72,7 +72,7 @@ namespace AutomataND
             evalBtn.FlatAppearance.MouseOverBackColor = Color.DeepSkyBlue;
             evalBtn.FlatAppearance.MouseDownBackColor = Color.DeepSkyBlue;
            
-            this.MinimumSize = new System.Drawing.Size(this.Width, this.Height);
+            this.MinimumSize = new System.Drawing.Size(/*this.Width*/ 389, this.Height);
             this.MaximumSize = new System.Drawing.Size(Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height);
             this.AutoSize = true;
             this.AutoSizeMode = AutoSizeMode.GrowAndShrink;
@@ -102,15 +102,15 @@ namespace AutomataND
                {
                    showData();
                    createTable();
-                   textDisplay.Text = "Valid Automata";
-                   textDisplay.BackColor = Color.SlateGray;
+                   statusDisplay.Text = "Valid Automata";
+                   statusDisplay.BackColor = Color.SlateGray;
                }
                else
                {
                    restartValues();
                    showData();
-                   textDisplay.Text = "Not Valid Automata";
-                   textDisplay.BackColor = Color.SlateGray;
+                   statusDisplay.Text = "Not Valid Automata";
+                   statusDisplay.BackColor = Color.SlateGray;
                }
               
             }
@@ -123,46 +123,34 @@ namespace AutomataND
             if (automataLoaded)
             {
                 bool test = afn.eval(inputString.Text);
-                textDisplay.Text = '"'+inputString.Text +'"'+ (test ? " is Acepted": " is Not Acepted ");
-                textDisplay.BackColor = test ? Color.FromArgb(95, 183, 70) : Color.FromArgb(250, 47, 67);
+                statusDisplay.Text = '"'+inputString.Text +'"'+ (test ? " is Acepted": " is Not Acepted ");
+                statusDisplay.BackColor = test ? Color.FromArgb(95, 183, 70) : Color.FromArgb(250, 47, 67);
         
             }
             else
             {
-                textDisplay.Text = "Not Loaded";
-                textDisplay.BackColor = Color.SlateGray;
+                statusDisplay.Text = "Not Loaded";
+                statusDisplay.BackColor = Color.SlateGray;
 
             }
         }
 
-       
-
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            panelregex.Visible = checkwrite.Checked;
-            exportAFN.Visible = checkwrite.Checked;
-            loadAutomataToolStripMenuItem.Visible = !checkwrite.Checked;
-            
-        }
-
         private void regbutton_Click(object sender, EventArgs e)
         {
-            Mod1 m1 = new Mod1();
+           
+            Mod1 m1 = new Mod1(regex.Text);
             Mod2 m2 = new Mod2();
-            m1.convertToPostfix(regex.Text);
             m2.computeAFN_E(m1.getResult());
-            Mod3.quitaEpsilon(m2.result);
-            afn = m2.result;
-            bool test = afn.eval(evaluate.Text);
-            textDisplay.Text = '"' + evaluate.Text + '"' + (test ? " is Acepted" : " is Not Acepted ");
-            textDisplay.BackColor = test ? Color.FromArgb(95, 183, 70) : Color.FromArgb(250, 47, 67);
+            afn = m2.result; //fix conversion.
+            bool test = m2.NBresult.evaluate(evaluate.Text);
+            statusDisplay.Text = '"' + evaluate.Text + '"' + (test ? " is Acepted" : " is Not Acepted ");
+            statusDisplay.BackColor = test ? Color.FromArgb(95, 183, 70) : Color.FromArgb(250, 47, 67);
             
         }
 
         private void exportAFN_Click(object sender, EventArgs e)
         {
-            string path;
+            
             //Load in case not loaded.
             Mod1 m1 = new Mod1();
             Mod2 m2 = new Mod2();
@@ -186,5 +174,49 @@ namespace AutomataND
             
             
         }
+
+        //Views
+        private void aFNToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            panelregex.Visible = false;
+            panelAFN.Visible = true;
+            panelTextEval.Visible = false;
+            loadAFN.Visible = true;
+            exportAFN.Visible = false;
+        }
+
+        private void viewRegex_Click(object sender, EventArgs e)
+        {
+            panelregex.Visible = true;
+            panelAFN.Visible = false;
+            panelTextEval.Visible = false;
+            loadAFN.Visible = false;
+            exportAFN.Visible = true;
+
+        }
+
+        private void viewTextEval_Click(object sender, EventArgs e)
+        {
+            panelregex.Visible = false;
+            panelAFN.Visible = false;
+            panelTextEval.Visible = true;
+            loadAFN.Visible = false;
+            exportAFN.Visible = true;
+
+        }
+        //text eval
+        private void textEval_Click(object sender, EventArgs e)
+        {
+            Mod1 m1 = new Mod1(textRegex.Text);
+            Mod2 m2 = new Mod2();
+            m2.computeAFN_E(m1.getResult());
+            afn = m2.result; //fix conversion.
+            List<string> match = m2.NBresult.textEval(textTextbox.Text);
+            resultTextbox.Text = string.Join("\n", match.ToArray());
+
+            statusDisplay.Text = match.Count+" strings Accepted";
+            statusDisplay.BackColor = match.Count != 0 ? Color.FromArgb(95, 183, 70) : Color.FromArgb(250, 47, 67);
+        }
+
     }
 }
