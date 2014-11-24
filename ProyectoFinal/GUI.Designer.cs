@@ -32,6 +32,7 @@
             this.FileMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.loadAFN = new System.Windows.Forms.ToolStripMenuItem();
             this.exportAFN = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadText = new System.Windows.Forms.ToolStripMenuItem();
             this.ViewMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.viewAFN = new System.Windows.Forms.ToolStripMenuItem();
             this.viewRegex = new System.Windows.Forms.ToolStripMenuItem();
@@ -53,10 +54,10 @@
             this.regex = new System.Windows.Forms.TextBox();
             this.panelAFN = new System.Windows.Forms.Panel();
             this.panelTextEval = new System.Windows.Forms.Panel();
-            this.textTextbox = new System.Windows.Forms.RichTextBox();
-            this.resultTextbox = new System.Windows.Forms.RichTextBox();
-            this.textRegex = new System.Windows.Forms.TextBox();
             this.textEval = new System.Windows.Forms.Button();
+            this.textRegex = new System.Windows.Forms.TextBox();
+            this.resultTextbox = new System.Windows.Forms.RichTextBox();
+            this.textTextbox = new System.Windows.Forms.RichTextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.tableView)).BeginInit();
             this.panelregex.SuspendLayout();
@@ -79,7 +80,8 @@
             // 
             this.FileMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.loadAFN,
-            this.exportAFN});
+            this.exportAFN,
+            this.loadText});
             this.FileMenu.Name = "FileMenu";
             this.FileMenu.Size = new System.Drawing.Size(37, 20);
             this.FileMenu.Text = "File";
@@ -87,17 +89,25 @@
             // loadAFN
             // 
             this.loadAFN.Name = "loadAFN";
-            this.loadAFN.Size = new System.Drawing.Size(133, 22);
+            this.loadAFN.Size = new System.Drawing.Size(152, 22);
             this.loadAFN.Text = "Load AFN";
-            this.loadAFN.Click += new System.EventHandler(this.loadAutomataToolStripMenuItem_Click);
+            this.loadAFN.Click += new System.EventHandler(this.loadAFN_Click);
             // 
             // exportAFN
             // 
             this.exportAFN.Name = "exportAFN";
-            this.exportAFN.Size = new System.Drawing.Size(133, 22);
+            this.exportAFN.Size = new System.Drawing.Size(152, 22);
             this.exportAFN.Text = "Export AFN";
             this.exportAFN.Visible = false;
             this.exportAFN.Click += new System.EventHandler(this.exportAFN_Click);
+            // 
+            // loadText
+            // 
+            this.loadText.Name = "loadText";
+            this.loadText.Size = new System.Drawing.Size(152, 22);
+            this.loadText.Text = "Load Text";
+            this.loadText.Visible = false;
+            this.loadText.Click += new System.EventHandler(this.loadText_Click);
             // 
             // ViewMenu
             // 
@@ -114,7 +124,7 @@
             this.viewAFN.Name = "viewAFN";
             this.viewAFN.Size = new System.Drawing.Size(154, 22);
             this.viewAFN.Text = "AFN";
-            this.viewAFN.Click += new System.EventHandler(this.aFNToolStripMenuItem_Click);
+            this.viewAFN.Click += new System.EventHandler(this.viewAFN_Click);
             // 
             // viewRegex
             // 
@@ -321,33 +331,6 @@
             this.panelTextEval.TabIndex = 14;
             this.panelTextEval.Visible = false;
             // 
-            // textTextbox
-            // 
-            this.textTextbox.DetectUrls = false;
-            this.textTextbox.Location = new System.Drawing.Point(20, 58);
-            this.textTextbox.Name = "textTextbox";
-            this.textTextbox.Size = new System.Drawing.Size(334, 233);
-            this.textTextbox.TabIndex = 0;
-            this.textTextbox.Text = "";
-            // 
-            // resultTextbox
-            // 
-            this.resultTextbox.BackColor = System.Drawing.SystemColors.MenuBar;
-            this.resultTextbox.DetectUrls = false;
-            this.resultTextbox.Location = new System.Drawing.Point(391, 58);
-            this.resultTextbox.Name = "resultTextbox";
-            this.resultTextbox.ReadOnly = true;
-            this.resultTextbox.Size = new System.Drawing.Size(299, 233);
-            this.resultTextbox.TabIndex = 1;
-            this.resultTextbox.Text = "";
-            // 
-            // textRegex
-            // 
-            this.textRegex.Location = new System.Drawing.Point(20, 26);
-            this.textRegex.Name = "textRegex";
-            this.textRegex.Size = new System.Drawing.Size(601, 20);
-            this.textRegex.TabIndex = 2;
-            // 
             // textEval
             // 
             this.textEval.BackColor = System.Drawing.Color.LightSkyBlue;
@@ -365,6 +348,33 @@
             this.textEval.Text = "Evaluate";
             this.textEval.UseVisualStyleBackColor = false;
             this.textEval.Click += new System.EventHandler(this.textEval_Click);
+            // 
+            // textRegex
+            // 
+            this.textRegex.Location = new System.Drawing.Point(20, 26);
+            this.textRegex.Name = "textRegex";
+            this.textRegex.Size = new System.Drawing.Size(601, 20);
+            this.textRegex.TabIndex = 2;
+            // 
+            // resultTextbox
+            // 
+            this.resultTextbox.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.resultTextbox.DetectUrls = false;
+            this.resultTextbox.Location = new System.Drawing.Point(391, 58);
+            this.resultTextbox.Name = "resultTextbox";
+            this.resultTextbox.ReadOnly = true;
+            this.resultTextbox.Size = new System.Drawing.Size(299, 233);
+            this.resultTextbox.TabIndex = 1;
+            this.resultTextbox.Text = "";
+            // 
+            // textTextbox
+            // 
+            this.textTextbox.DetectUrls = false;
+            this.textTextbox.Location = new System.Drawing.Point(20, 58);
+            this.textTextbox.Name = "textTextbox";
+            this.textTextbox.Size = new System.Drawing.Size(334, 233);
+            this.textTextbox.TabIndex = 0;
+            this.textTextbox.Text = "";
             // 
             // GUI
             // 
@@ -424,6 +434,7 @@
         private System.Windows.Forms.RichTextBox textTextbox;
         private System.Windows.Forms.Button textEval;
         private System.Windows.Forms.TextBox textRegex;
+        private System.Windows.Forms.ToolStripMenuItem loadText;
     }
 }
 

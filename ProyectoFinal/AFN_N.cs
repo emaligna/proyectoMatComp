@@ -129,7 +129,8 @@ namespace AutomataND
             {
                 foreach (Transition trans in state.transitions)
                 {
-                    if (trans.input != _eps && (trans.input == input || (trans.input == '|' && inRealAlphabet(input))) && !result.Contains(trans.destination))
+                    //if (trans.input != _eps && (trans.input == input || (trans.input == '|' && inRealAlphabet(input))) && !result.Contains(trans.destination))
+                    if (trans.input != _eps && (trans.input == input || ((trans.input == '|' || (trans.input=='#' && input!=' ')) && inRealAlphabet(input))) && !result.Contains(trans.destination))
                         result.Add(trans.destination);
                     //wildcard somewhere around here
                 }
@@ -213,12 +214,13 @@ namespace AutomataND
         {
             List<char> start = startAlphabet();
             bool startWildCard = start.Contains('|');
+            bool startSpacelessWildCard = start.Contains('#');
             List<string> result = new List<string>();
             if (acceptsEpsilon) result.Add("" + _eps);
             for (int i = 0; i < text.Length; i++)
             {
                 char input = text[i];
-                if (start.Contains(input) || (startWildCard && inRealAlphabet(input)))
+                if (start.Contains(input) || ( (startWildCard || startSpacelessWildCard && input!=' ' )&& inRealAlphabet(input)))
                 {
                     contEval(result, text, i);
                 }

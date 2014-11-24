@@ -86,7 +86,7 @@ namespace AutomataND
             evalBtn.Location = new Point(inputString.Width, evalBtn.Location.Y);
         }
 
-        private void loadAutomataToolStripMenuItem_Click(object sender, EventArgs e)
+        private void loadAFN_Click(object sender, EventArgs e)
         {
             string path;
             OpenFileDialog file = new OpenFileDialog();
@@ -176,13 +176,14 @@ namespace AutomataND
         }
 
         //Views
-        private void aFNToolStripMenuItem_Click(object sender, EventArgs e)
+        private void viewAFN_Click(object sender, EventArgs e)
         {
             panelregex.Visible = false;
             panelAFN.Visible = true;
             panelTextEval.Visible = false;
             loadAFN.Visible = true;
             exportAFN.Visible = false;
+            loadText.Visible = false;
         }
 
         private void viewRegex_Click(object sender, EventArgs e)
@@ -192,7 +193,7 @@ namespace AutomataND
             panelTextEval.Visible = false;
             loadAFN.Visible = false;
             exportAFN.Visible = true;
-
+            loadText.Visible = false;
         }
 
         private void viewTextEval_Click(object sender, EventArgs e)
@@ -202,7 +203,7 @@ namespace AutomataND
             panelTextEval.Visible = true;
             loadAFN.Visible = false;
             exportAFN.Visible = true;
-
+            loadText.Visible = true;
         }
         //text eval
         private void textEval_Click(object sender, EventArgs e)
@@ -218,5 +219,20 @@ namespace AutomataND
             statusDisplay.BackColor = match.Count != 0 ? Color.FromArgb(95, 183, 70) : Color.FromArgb(250, 47, 67);
         }
 
+        private void loadText_Click(object sender, EventArgs e)
+        {
+            string path;
+            OpenFileDialog file = new OpenFileDialog();
+            file.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+            file.Filter = "Text Files (*.txt)|*.txt";
+            
+            if (file.ShowDialog() == DialogResult.OK)
+            {
+                path = file.FileName;
+                textTextbox.Text = System.IO.File.ReadAllText(path);
+                statusDisplay.Text = "Text Loaded";
+                statusDisplay.BackColor = Color.SlateGray;
+            }
+        }
     }
 }
