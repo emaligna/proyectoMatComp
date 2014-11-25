@@ -208,6 +208,7 @@ namespace AutomataND
         //text eval
         private void textEval_Click(object sender, EventArgs e)
         {
+            if (textRegex.Text== "") return;
             Mod1 m1 = new Mod1(textRegex.Text);
             Mod2 m2 = new Mod2();
             m2.computeAFN_E(m1.getResult());
@@ -230,9 +231,31 @@ namespace AutomataND
             {
                 path = file.FileName;
                 textTextbox.Text = System.IO.File.ReadAllText(path);
-                statusDisplay.Text = "Text Loaded";
+                for (int i = 0; i < textTextbox.Text.Length; i++)
+                {
+                    if (textTextbox.Text[i] == '\n') resultTextbox.Text = "LOL";
+                }
+                    statusDisplay.Text = "Text Loaded";
                 statusDisplay.BackColor = Color.SlateGray;
             }
+        }
+
+        private void textRegex_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+                textEval_Click(sender, e);
+        }
+
+        private void inputString_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+                evalBtn_Click(sender, e);
+        }
+
+        private void regex_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter)
+                regbutton_Click(sender, e);
         }
     }
 }

@@ -72,7 +72,7 @@
             this.ViewMenu});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(736, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(373, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -146,6 +146,7 @@
             this.inputString.Name = "inputString";
             this.inputString.Size = new System.Drawing.Size(193, 20);
             this.inputString.TabIndex = 2;
+            this.inputString.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.inputString_KeyPress);
             // 
             // evalBtn
             // 
@@ -246,7 +247,7 @@
             this.panelregex.Controls.Add(this.regbutton);
             this.panelregex.Controls.Add(this.evaluate);
             this.panelregex.Controls.Add(this.regex);
-            this.panelregex.Location = new System.Drawing.Point(13, 48);
+            this.panelregex.Location = new System.Drawing.Point(14, 48);
             this.panelregex.Name = "panelregex";
             this.panelregex.Size = new System.Drawing.Size(353, 292);
             this.panelregex.TabIndex = 12;
@@ -294,6 +295,7 @@
             this.evaluate.Name = "evaluate";
             this.evaluate.Size = new System.Drawing.Size(208, 20);
             this.evaluate.TabIndex = 2;
+            this.evaluate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.regex_KeyPress);
             // 
             // regex
             // 
@@ -301,6 +303,7 @@
             this.regex.Name = "regex";
             this.regex.Size = new System.Drawing.Size(208, 20);
             this.regex.TabIndex = 1;
+            this.regex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.regex_KeyPress);
             // 
             // panelAFN
             // 
@@ -355,6 +358,7 @@
             this.textRegex.Name = "textRegex";
             this.textRegex.Size = new System.Drawing.Size(601, 20);
             this.textRegex.TabIndex = 2;
+            this.textRegex.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textRegex_KeyPress);
             // 
             // resultTextbox
             // 
@@ -380,7 +384,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(736, 375);
+            this.ClientSize = new System.Drawing.Size(373, 375);
             this.Controls.Add(this.panelTextEval);
             this.Controls.Add(this.panelAFN);
             this.Controls.Add(this.panelregex);

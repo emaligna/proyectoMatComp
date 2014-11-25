@@ -11,13 +11,11 @@ namespace AutomataND
     {
         const char _eps = '@';
         public Node initialNode;
-        public List<Node> FreeNodes;
         public List<Transition> nullOut;
         private bool acceptsEpsilon;
         public AFN_N()
         {
             initialNode = null;
-            FreeNodes = new List<Node>();
             nullOut = new List<Transition>();
             acceptsEpsilon = false;
         }
@@ -220,6 +218,7 @@ namespace AutomataND
             for (int i = 0; i < text.Length; i++)
             {
                 char input = text[i];
+               
                 if (start.Contains(input) || ( (startWildCard || startSpacelessWildCard && input!=' ' )&& inRealAlphabet(input)))
                 {
                     contEval(result, text, i);
