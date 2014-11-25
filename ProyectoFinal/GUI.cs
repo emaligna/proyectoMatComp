@@ -150,28 +150,35 @@ namespace AutomataND
 
         private void exportAFN_Click(object sender, EventArgs e)
         {
-            
-            //Load in case not loaded.
-            Mod1 m1 = new Mod1();
-            Mod2 m2 = new Mod2();
-            m1.convertToPostfix(regex.Text);
-            m2.computeAFN_E(m1.getResult());
-            Mod3.quitaEpsilon(m2.result);
-            afn = m2.result;
-            //Parsed string.
-            string afnS = afn.AFNtoString();
-
-            SaveFileDialog savePicker = new SaveFileDialog();
-            savePicker.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
-            savePicker.Filter = "Automata Files (*.af*)|*.af*|AFN Files (*.afn)|*.afn|AFD Files (*.afd)|*.afd";
-            savePicker.FileName = "New AFN";
-            savePicker.DefaultExt=".afn";
-
-             if (savePicker.ShowDialog() == DialogResult.OK)
+            try
             {
-                 System.IO.File.WriteAllText(savePicker.FileName, afnS);
+                //Load in case not loaded.
+                Mod1 m1 = new Mod1();
+                Mod2 m2 = new Mod2();
+                m1.convertToPostfix(regex.Text);
+                m2.computeAFN_E(m1.getResult());
+                Mod3.quitaEpsilon(m2.result);
+                afn = m2.result;
+                //Parsed string.
+                string afnS = afn.AFNtoString();
+
+                SaveFileDialog savePicker = new SaveFileDialog();
+                savePicker.InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile);
+                savePicker.Filter = "Automata Files (*.af*)|*.af*|AFN Files (*.afn)|*.afn|AFD Files (*.afd)|*.afd";
+                savePicker.FileName = "New AFN";
+                savePicker.DefaultExt = ".afn";
+
+                if (savePicker.ShowDialog() == DialogResult.OK)
+                {
+                    System.IO.File.WriteAllText(savePicker.FileName, afnS);
+                }
             }
-            
+            catch (Exception ex)
+            {
+                statusDisplay.Text = "Failed Export";
+                statusDisplay.BackColor = Color.FromArgb(250, 47, 67);
+       
+            }
             
         }
 

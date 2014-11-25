@@ -41,12 +41,7 @@ namespace AutomataND
             finalStates = f;
             hasEpsilon = eps;
         }
-        //TODO
-        public void removeEps()
-        {
-
-        }
-        //TODO
+       
         public bool eval(string input)
         {
             if (hasEpsilon)
@@ -135,7 +130,7 @@ namespace AutomataND
                                              ' ','.'};
              return ra.Contains(c);
          }
-         private List<string> transition(string state, char c)
+         public List<string> transition(string state, char c)
          {
              List<string> result = new List<string>();
              int i=this.state(state);

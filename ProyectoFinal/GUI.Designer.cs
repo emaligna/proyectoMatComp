@@ -96,8 +96,8 @@
             // exportAFN
             // 
             this.exportAFN.Name = "exportAFN";
-            this.exportAFN.Size = new System.Drawing.Size(152, 22);
-            this.exportAFN.Text = "Export AFN";
+            this.exportAFN.Size = new System.Drawing.Size(164, 22);
+            this.exportAFN.Text = "Export AFN(Beta)";
             this.exportAFN.Visible = false;
             this.exportAFN.Click += new System.EventHandler(this.exportAFN_Click);
             // 
